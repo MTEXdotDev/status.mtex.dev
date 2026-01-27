@@ -1,6 +1,36 @@
 <?php
 date_default_timezone_set('Europe/Berlin');
 $config = require 'config.php';
+
+if (isset($_GET['type'])) {
+    $type = strtolower($_GET['type']);
+    if ($type === 'raw') {
+        header('Content-Type: application/json');
+        echo json_encode($config['services']);
+        exit();
+    }
+    if ($type === 'check') {
+        header('Content-Type: application/json');
+        $all_online = true;
+        foreach ($config['services'] as $service) {
+            if ($service['is_deployed']) {
+                $ch = curl_init($service['address']);
+                curl_setopt($ch, CURLOPT_NOBODY, true);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+                curl_exec($ch);
+                $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                curl_close($ch);
+                if ($code < 200 || $code >= 400) {
+                    $all_online = false;
+                    break;
+                }
+            }
+        }
+        echo json_encode(['operational' => $all_online]);
+        exit();
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,7 +131,9 @@ $config = require 'config.php';
         }
 
         function checkAllServices() {
-            document.getElementById('last-update').textContent = `Live · Updated ${new RegExp(/\d{2}:\d{2}:\d{2}/).exec(new Date().toString())[0]}`;
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            document.getElementById('last-update').textContent = `Live · Updated ${timeString}`;
             document.querySelectorAll('.service-card').forEach(checkService);
         }
 
