@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'version' => 'v1.1.0',
+    'version' => 'v1.2.0',
     'services' => [
         [
             'address' => 'https://mtex.dev',
@@ -29,7 +29,7 @@ return [
             'name' => 'GimySite',
             'description' => 'Free static website hosting for modern developers.',
             'github' => 'https://github.com/MTEX-dev/gimy.site',
-            'is_deployed' => true,
+            'is_deployed' => false,
         ],
         [
             'address' => 'https://getmy.name',
