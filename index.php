@@ -1,22 +1,6 @@
 <?php
-
 date_default_timezone_set('Europe/Berlin');
-
 $config = require 'config.php';
-
-function checkService($url)
-{
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
-    return $httpCode >= 200 && $httpCode < 400;
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,50 +12,37 @@ function checkService($url)
 </head>
 <body class="bg-neutral-950 text-neutral-100 min-h-screen">
     <div class="max-w-5xl mx-auto px-6 py-12">
-        <header class="mb-16">
-            <div class="flex items-baseline gap-3 mb-2">
-                <h1 class="text-4xl font-bold tracking-tight">MTEX</h1>
-                <span class="text-neutral-500 text-sm font-medium">Service Status</span>
+        <header class="mb-16 flex justify-between items-start">
+            <div>
+                <div class="flex items-baseline gap-3 mb-2">
+                    <h1 class="text-4xl font-bold tracking-tight">MTEX</h1>
+                    <span class="text-neutral-500 text-sm font-medium">Service Status</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-neutral-500">
+                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span id="last-update">Live · Updated <?php echo date('H:i:s'); ?></span>
+                </div>
             </div>
-            <div class="flex items-center gap-2 text-sm text-neutral-500">
-                <div class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                <span>Live · Updated <?php echo date('H:i:s'); ?></span>
-            </div>
+            <button onclick="checkAllServices()" class="p-2 hover:bg-neutral-900 rounded-lg transition-colors text-neutral-400 hover:text-white" title="Refresh Status">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                </svg>
+            </button>
         </header>
 
         <div class="space-y-3">
-            <?php foreach ($config['services'] as $service): ?>
-                <?php
-                $isOnline = $service['is_deployed']
-                    ? checkService($service['address'])
-                    : null;
-                $statusText =
-                    $isOnline === null
-                        ? $config['states']['maintenance']
-                        : ($isOnline
-                            ? $config['states']['online']
-                            : $config['states']['offline']);
-                $statusColor =
-                    $isOnline === null
-                        ? 'bg-amber-500'
-                        : ($isOnline
-                            ? 'bg-emerald-500'
-                            : 'bg-red-500');
-                $borderColor =
-                    $isOnline === null
-                        ? 'border-amber-500/20'
-                        : ($isOnline
-                            ? 'border-emerald-500/20'
-                            : 'border-red-500/20');
-                ?>
-                <div class="bg-neutral-900 border <?php echo $borderColor; ?> rounded-xl p-6 hover:bg-neutral-900/80 transition-colors">
+            <?php foreach ($config['services'] as $index => $service): ?>
+                <div id="service-<?php echo $index; ?>" 
+                     data-address="<?php echo $service['address']; ?>" 
+                     data-deployed="<?php echo $service['is_deployed'] ? 'true' : 'false'; ?>"
+                     class="service-card bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:bg-neutral-900/80 transition-all">
                     <div class="flex items-start justify-between gap-6">
                         <div class="flex-1">
                             <div class="flex items-center gap-3 mb-2">
                                 <h2 class="text-lg font-semibold"><?php echo $service['name']; ?></h2>
                                 <div class="flex items-center gap-2">
-                                    <div class="w-2 h-2 rounded-full <?php echo $statusColor; ?>"></div>
-                                    <span class="text-xs font-medium text-neutral-400"><?php echo $statusText; ?></span>
+                                    <div class="status-dot w-2 h-2 rounded-full bg-neutral-700"></div>
+                                    <span class="status-text text-xs font-medium text-neutral-400">Checking...</span>
                                 </div>
                             </div>
                             <p class="text-sm text-neutral-400 mb-3"><?php echo $service['description']; ?></p>
@@ -100,5 +71,41 @@ function checkService($url)
             </div>
         </footer>
     </div>
+
+    <script>
+        const states = <?php echo json_encode($config['states']); ?>;
+
+        async function checkService(card) {
+            const address = card.dataset.address;
+            const isDeployed = card.dataset.deployed === 'true';
+            const dot = card.querySelector('.status-dot');
+            const label = card.querySelector('.status-text');
+
+            if (!isDeployed) {
+                updateUI(card, dot, label, 'maintenance', 'bg-amber-500', 'border-amber-500/20');
+                return;
+            }
+
+            try {
+                const response = await fetch(address, { mode: 'no-cors', cache: 'no-cache' });
+                updateUI(card, dot, label, 'online', 'bg-emerald-500', 'border-emerald-500/20');
+            } catch (error) {
+                updateUI(card, dot, label, 'offline', 'bg-red-500', 'border-red-500/20');
+            }
+        }
+
+        function updateUI(card, dot, label, stateKey, colorClass, borderClass) {
+            dot.className = `status-dot w-2 h-2 rounded-full ${colorClass}`;
+            label.textContent = states[stateKey];
+            card.className = `service-card bg-neutral-900 border ${borderClass} rounded-xl p-6 hover:bg-neutral-900/80 transition-all`;
+        }
+
+        function checkAllServices() {
+            document.getElementById('last-update').textContent = `Live · Updated ${new RegExp(/\d{2}:\d{2}:\d{2}/).exec(new Date().toString())[0]}`;
+            document.querySelectorAll('.service-card').forEach(checkService);
+        }
+
+        window.onload = checkAllServices;
+    </script>
 </body>
 </html>
