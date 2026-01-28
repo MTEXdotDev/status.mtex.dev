@@ -1,13 +1,20 @@
 <?php
 
 return [
-    'version' => 'v1.2.4',
+    'version' => 'v1.2.5',
     'services' => [
         [
             'address' => 'https://mtex.dev',
             'name' => 'Landingpage',
             'description' => 'Our main landingpage',
             'github' => 'https://github.com/MTEDdotDev/static-landingpage',
+            'is_deployed' => true,
+        ],
+        [
+            'address' => 'https://legal.mtex.dev',
+            'name' => 'Legal Center',
+            'description' => 'Multilingual hub for imprint, privacy policies, and legal documentation.',
+            'github' => 'https://github.com/MTEXdotDev/legal.mtex.dev',
             'is_deployed' => true,
         ],
         [

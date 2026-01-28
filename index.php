@@ -120,16 +120,19 @@ if (isset($_GET['type'])) {
         </div>
 
         <footer class="mt-16 md:mt-24 pt-8 md:pt-12 border-t border-neutral-900 pb-8 md:pb-12">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-neutral-600 text-xs">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 text-neutral-600 text-xs">
                 <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
                     <span class="font-medium text-neutral-500">&copy; <?php echo date('Y'); ?> MTEX.dev</span>
                     <span class="hidden sm:inline text-neutral-800">|</span>
-                    <a href="https://github.com/MTEDdotDev/status.mtex.dev" target="_blank" class="hover:text-neutral-300 transition-colors underline decoration-neutral-800 underline-offset-4">GitHub Repository</a>
+                    <div class="flex items-center gap-4">
+                        <a href="https://legal.mtex.dev/imprint" target="_blank" class="hover:text-neutral-300 transition-colors">Imprint</a>
+                        <a href="https://legal.mtex.dev/privacy" target="_blank" class="hover:text-neutral-300 transition-colors">Privacy</a>
+                    </div>
                 </div>
                 <div class="flex items-center gap-4 uppercase tracking-widest font-bold">
-                    <span><?php echo $config['version']; ?></span>
+                    <span class="text-neutral-700"><?php echo $config['version']; ?></span>
                     <span class="text-neutral-800">/</span>
-                    <span class="text-neutral-700">DE</span>
+                    <span class="text-neutral-700">PHP <?php echo PHP_VERSION; ?></span>
                     <span class="text-neutral-800">/</span>
                     <span class="text-neutral-700"><?php echo(round(memory_get_usage() / 1024 / 1024, 2) . ' MB') ?></span>
                 </div>
