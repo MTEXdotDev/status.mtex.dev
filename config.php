@@ -43,7 +43,7 @@ return [
             'name' => 'GetMyName',
             'description' => 'A headless API to power your personal portfolio data.',
             'github' => 'https://github.com/MTEDdotDev/getmy.name',
-            'is_deployed' => false,
+            'is_deployed' => true,
         ],
         [
             'address' => 'https://getmy.blog',
