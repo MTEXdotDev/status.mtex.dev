@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'version' => 'v1.2.5',
+    'version' => 'v1.3.1',
     'services' => [
         [
             'address' => 'https://mtex.dev',
@@ -29,6 +29,13 @@ return [
             'name' => 'MTEX Nexus',
             'description' => 'A lightweight JSON API gateway for seamless data exchange and rapid prototyping.',
             'github' => 'https://github.com/MTEDdotDev/nx.mtex.dev',
+            'is_deployed' => true,
+        ],
+        [
+            'address' => 'https://diff.mtex.dev',
+            'name' => 'MTEX Diff',
+            'description' => 'A visual comparison tool for JSON payloads and code.',
+            'github' => 'https://github.com/MTEDdotDev/diff.mtex.dev',
             'is_deployed' => true,
         ],
         [
