@@ -37,8 +37,31 @@ if (isset($_GET['type'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MTEX Status</title>
+    
+    <title>MTEX Status — Service Monitoring</title>
+    <meta name="title" content="MTEX Status — Service Monitoring">
+    <meta name="description" content="Real-time operational status and uptime monitoring for MTEX infrastructure and services.">
+    <meta name="keywords" content="MTEX, Status, Uptime, Services, Monitoring, API Status">
+    <meta name="author" content="MTEDdotDev">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://status.mtex.dev/">
+    <meta property="og:title" content="MTEX Status">
+    <meta property="og:description" content="Check the current status and performance of all MTEX services.">
+    <meta property="og:image" content="https://github.com/MTEDdotDev.png">
+
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="https://status.mtex.dev/">
+    <meta property="twitter:title" content="MTEX Status">
+    <meta property="twitter:description" content="Check the current status and performance of all MTEX services.">
+    <meta property="twitter:image" content="https://github.com/MTEDdotDev.png">
+
     <link rel="icon" type="image/x-icon" href="https://github.com/MTEDdotDev.png">
+    <link rel="apple-touch-icon" href="https://github.com/MTEDdotDev.png">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes custom-spin {
@@ -52,6 +75,10 @@ if (isset($_GET['type'])) {
             background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(12px);
         }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #262626; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #404040; }
     </style>
 </head>
 <body class="bg-neutral-950 text-neutral-100 min-h-screen selection:bg-emerald-500/30">
