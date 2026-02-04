@@ -1,13 +1,20 @@
 <?php
 
 return [
-    'version' => 'v1.3.1',
+    'version' => 'v1.3.2',
     'services' => [
         [
             'address' => 'https://mtex.dev',
             'name' => 'Landingpage',
             'description' => 'Our main landingpage',
             'github' => 'https://github.com/MTEDdotDev/static-landingpage',
+            'is_deployed' => true,
+        ],
+        [
+            'address' => 'https://index.mtex.dev',
+            'name' => 'Service Index',
+            'description' => 'Central directory and manifest of all mtex.dev domains and nodes.',
+            'github' => 'https://github.com/MTEDdotDev/index.mtex.dev',
             'is_deployed' => true,
         ],
         [
