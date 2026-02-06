@@ -57,7 +57,7 @@ if (isset($_GET['type'])) {
     <meta property="twitter:description" content="Check the current status and performance of all MTEX services.">
     <meta property="twitter:image" content="https://github.com/MTEXdotDev.png">
 
-    <link rel="icon" type="image/x-icon" href="https://github.com/MTEXdotDev.png">
+    <link rel="icon" type="image/png" href="http://github.com/MTEXdotDev.png" />
     <link rel="apple-touch-icon" href="https://github.com/MTEXdotDev.png">
     <meta name="theme-color" content="#0a0a0a">
     <meta name="apple-mobile-web-app-capable" content="yes">
