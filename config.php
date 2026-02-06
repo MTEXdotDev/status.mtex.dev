@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'version' => 'v1.3.2',
+    'version' => 'v1.3.3',
     'services' => [
         [
             'address' => 'https://mtex.dev',
