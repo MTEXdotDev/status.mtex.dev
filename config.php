@@ -1,13 +1,15 @@
 <?php
 
 return [
-    'version' => 'v1.3.3',
+    'version' => 'v1.4.0',
+    'gh_service_index' => 5,
     'services' => [
         [
             'address' => 'https://mtex.dev',
             'name' => 'Landingpage',
             'description' => 'Our main landingpage',
             'github' => 'https://github.com/MTEDdotDev/static-landingpage',
+            'github_slug' => 'static-landingpage',
             'is_deployed' => true,
         ],
         [
@@ -15,6 +17,7 @@ return [
             'name' => 'Service Index',
             'description' => 'Central directory and manifest of all mtex.dev domains and nodes.',
             'github' => 'https://github.com/MTEDdotDev/index.mtex.dev',
+            'github_slug' => 'index.mtex.dev',
             'is_deployed' => true,
         ],
         [
@@ -22,6 +25,7 @@ return [
             'name' => 'Legal Center',
             'description' => 'Multilingual hub for imprint, privacy policies, and legal documentation.',
             'github' => 'https://github.com/MTEXdotDev/legal.mtex.dev',
+            'github_slug' => 'legal.mtex.dev',
             'is_deployed' => true,
         ],
         [
@@ -29,6 +33,7 @@ return [
             'name' => 'Tailwind Components Libary',
             'description' => 'Our TailwindCSS component library for rapid UI development.',
             'github' => 'https://github.com/MTEDdotDev/tw.mtex.dev',
+            'github_slug' => 'tw.mtex.dev',
             'is_deployed' => true,
         ],
         [
@@ -36,6 +41,15 @@ return [
             'name' => 'MTEX Nexus',
             'description' => 'A lightweight JSON API gateway for seamless data exchange and rapid prototyping.',
             'github' => 'https://github.com/MTEDdotDev/nx.mtex.dev',
+            'github_slug' => 'nx.mtex.dev',
+            'is_deployed' => true,
+        ],
+        [
+            'address' => 'https://gh.mtex.dev',
+            'name' => 'MTEX GitHub Redirect',
+            'description' => 'Redirects to the github-repos.',
+            'github' => 'https://github.com/MTEDdotDev/gh.mtex.dev',
+            'github_slug' => 'gh.mtex.dev',
             'is_deployed' => true,
         ],
         [
@@ -43,6 +57,7 @@ return [
             'name' => 'MTEX Diff',
             'description' => 'A visual comparison tool for JSON payloads and code.',
             'github' => 'https://github.com/MTEDdotDev/diff.mtex.dev',
+            'github_slug' => 'diff.mtex.dev',
             'is_deployed' => true,
         ],
         [
@@ -50,6 +65,7 @@ return [
             'name' => 'GimySite',
             'description' => 'Free static website hosting for modern developers.',
             'github' => 'https://github.com/MTEDdotDev/gimy.site',
+            'github_slug' => 'gimy.site',
             'is_deployed' => false,
         ],
         [
@@ -57,6 +73,7 @@ return [
             'name' => 'GetMyName',
             'description' => 'A headless API to power your personal portfolio data.',
             'github' => 'https://github.com/MTEDdotDev/getmy.name',
+            'github_slug' => 'getmy.name',
             'is_deployed' => true,
         ],
         [
@@ -64,6 +81,7 @@ return [
             'name' => 'GetMyBlog',
             'description' => 'Lightweight blogging-api for the minimalist writer.',
             'github' => 'https://github.com/MTEDdotDev/getmy.blog',
+            'github_slug' => 'getmy.blog',
             'is_deployed' => false,
         ],
     ],
